@@ -91,7 +91,7 @@ function App() {
       <h3>Security System for Personal Documents</h3>
       <button onClick={generateQR}>Generate QR</button>
       <p>
-        <img src={qr?.qrimage} />
+        <img src={qr?.qrimage} alt=""/>
         {qr?.uniqueId&&<p>Embed the Above QR Code on the document before submitting.</p>}
       </p>
       <p>Enter the URL of the file which you want to store on the blockchain and make sure that it has Public Access.</p>
