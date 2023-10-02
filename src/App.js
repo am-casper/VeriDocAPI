@@ -54,7 +54,6 @@ function App() {
       )
       .then((res) => {
         console.log(res.data);
-        getStatus();
       });
   };
   const getStatus = () => {
@@ -81,32 +80,36 @@ function App() {
         console.log(payloadNew);
         if (res.data.blockchainstatus !== "Success") {
           getStatus();
-        } else{
+        } else {
           setDetails(res.data);
         }
         setStatus(res.data.blockchainstatus);
-        
       });
-  }
+  };
   return (
-    <div>
+    <center>
+      <h3>Security System for Personal Documents</h3>
       <button onClick={generateQR}>Generate QR</button>
       <p>
         <img src={qr?.qrimage} />
+        {qr?.uniqueId&&<p>Embed the Above QR Code on the document before submitting.</p>}
       </p>
+      <p>Enter the URL of the file which you want to store on the blockchain and make sure that it has Public Access.</p>
       File Url:
       <input type="text" value={fileurl} onChange={handleInput} />
       <button onClick={handleSubmit}>Submit</button>
-      <p>Blockchain Status:{status===""?`Upload document`:status}</p>
-      {
-        details&&(
-          <div>
-            <p>Transaction ID:{details.transactionid}</p>
-            <p>Blockchain URL:<a href={details.blockchainurl}>{details.blockchainurl}</a></p>
-          </div>
-        )
-      }
-    </div>
+      <button onClick={getStatus}>Get Blockchain status</button>
+      <p>Blockchain Status:{status === "" ? `Upload document` : status}</p>
+      {details && (
+        <div>
+          <p>Transaction ID:{details.transactionid}</p>
+          <p>
+            Blockchain URL:
+            <a href={details.blockchainurl}>{details.blockchainurl}</a>
+          </p>
+        </div>
+      )}
+    </center>
   );
 }
 
